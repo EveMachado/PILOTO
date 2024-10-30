@@ -1,4 +1,4 @@
-package ufu;
+package ufu.piloto;
 
 public class Main {
     public static void main(String[] args) {

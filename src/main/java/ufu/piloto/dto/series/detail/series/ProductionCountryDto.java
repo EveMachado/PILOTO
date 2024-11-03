@@ -1,13 +1,11 @@
-package ufu.piloto.model.series;
+package ufu.piloto.dto.series.detail.series;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.ToString;
 
 @Getter
 @AllArgsConstructor
-@ToString
-public class Genre {
-    private final String id;
+public class ProductionCountryDto {
+    private final String isoCode;
     private final String name;
 }

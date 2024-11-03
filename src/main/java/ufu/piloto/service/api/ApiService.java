@@ -1,13 +1,18 @@
 package ufu.piloto.service.api;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import lombok.SneakyThrows;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import ufu.piloto.adapter.LocalDateAdapter;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -18,6 +23,25 @@ public abstract class ApiService {
     protected Retrofit retrofit;
 
     protected ApiService() {
+
+    }
+
+    @SneakyThrows
+    public static ApiService getInstance(Class<? extends ApiService> serviceClass) {
+        if (!instances.containsKey(serviceClass)) {
+            var constructor = serviceClass.getDeclaredConstructor();
+            constructor.setAccessible(true);
+
+            ApiService service = constructor.newInstance();
+            service.intiRetrofit();
+            service.apiCreate();
+            instances.put(serviceClass, service);
+        }
+
+        return serviceClass.cast(instances.get(serviceClass));
+    }
+
+    protected final void intiRetrofit() {
         OkHttpClient client = new OkHttpClient.Builder()
             .addInterceptor(
                 new Interceptor() {
@@ -34,26 +58,21 @@ public abstract class ApiService {
             )
             .build();
 
+        Gson gson = new GsonBuilder()
+            .registerTypeAdapter(LocalDate.class, new LocalDateAdapter())
+            .create();
+
         this.retrofit = new Retrofit.Builder()
             .baseUrl(getBaseUrl())
             .client(client)
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build();
     }
 
-    public static <T extends ApiService> T getInstance(Class<T> serviceClass) {
-        if (!instances.containsKey(serviceClass)) {
-            try {
-                instances.put(serviceClass, serviceClass.getDeclaredConstructor().newInstance());
-            } catch (Exception e) {
-                throw new RuntimeException("Falha na inicialização do serviço!", e);
-            }
-        }
-        return serviceClass.cast(instances.get(serviceClass));
-    }
-
-
     protected abstract String getBaseUrl();
+
     protected abstract Map<String, String> getHeaders();
 
+    protected abstract void apiCreate();
 
 }

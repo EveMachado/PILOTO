@@ -7,7 +7,7 @@ import lombok.ToString;
 @Getter
 @AllArgsConstructor
 @ToString
-public class Genre {
-    private final String id;
-    private final String name;
+public class StreamingProvider {
+    private final String provider_id;
+    private final String provider_name;
 }

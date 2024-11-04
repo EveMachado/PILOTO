@@ -1,5 +1,6 @@
 package ufu.piloto.service.api.tmdb;
 
+import lombok.SneakyThrows;
 import retrofit2.Response;
 import ufu.piloto.dto.series.detail.season.SeasonDetailDto;
 import ufu.piloto.dto.series.detail.season.SeasonDetailEpisodeDto;
@@ -53,8 +54,11 @@ public class TmdbService extends ApiService {
     }
 
     @Override
+    @SneakyThrows
     protected void apiCreate() {
         this.tmdbApi = this.retrofit.create(TmdbApi.class);
+        this.getConfiguration();
+        this.getGenres();
     }
 
     public ImageSettings getConfiguration() throws RequestException {

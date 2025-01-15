@@ -3,7 +3,7 @@
 
 
 
-## Description
+## Descrição
 O projeto "Piloto" visa criar uma aplicação desktop desenvolvida em Java
 para que os usuários possam registrar, avaliar e acompanhar séries consumidas. A
 plataforma será projetada com foco na interação social entre os usuários, permitindo
@@ -23,13 +23,15 @@ envolvente para amantes de séries.
 
 
 
-## Authors 
+## Autores
 
 Evellyn Fernanda Alamin Machado
+
 Gabriel Augusto Paiva
+
 Isabella Fernanda Cardoso Silva
 
 
-## Project status
+## Status do projeto
 
 

@@ -31,9 +31,8 @@ Evellyn Fernanda Alamin Machado
 
 Gabriel Augusto Paiva
 
-Isabella Fernanda Cardoso Silva
-
 
 ## Status do projeto
 
+Falta implementar a interface gráfica 
 
